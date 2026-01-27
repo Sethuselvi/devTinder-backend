@@ -8,7 +8,7 @@ app.use("/test",(req,res)=>{
 })
 
 app.use("/hello",(req,res)=>{
-    res.send("Helo hello  hello!!")
+    res.send("Helo hello  hello hello!!")
 })
 
 app.use("/",(req,res)=>{
