@@ -1,26 +1,24 @@
 const express = require('express');
 const app = express();
 
-app.get("/admin/getAllData",(req,res) => {
+app.use("/admin",(req,res,next) =>{
     //Logic of checking if the request is authorized
     const token = "xyzwueggfwe"
     const isAdminAuthorized = token === "xyzwueggfwe"
-    if(isAdminAuthorized){
-         res.send("All data sent");
-    }else{
-        res.status(401).send("Unauthorized request");
+    if(!isAdminAuthorized){
+                res.status(401).send("Unauthorized request");
+    }
+    else{
+        next();
     }
 })
 
+app.get("/admin/getAllData",(req,res) => {
+         res.send("All data sent");
+})
+
 app.get("/admin/deleteUser",(req,res) => {
-    //Logic of checking if the request is authorized
-    const token = "xyzwueggfwe"
-    const isAdminAuthorized = token === "xyzwueggfwe"
-    if(isAdminAuthorized){
          res.send("Deleted a user");
-    }else{
-        res.status(401).send("Unauthorized request");
-    }
 })
 
 
