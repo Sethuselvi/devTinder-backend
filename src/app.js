@@ -1,17 +1,9 @@
 const express = require('express');
 const app = express();
 
-app.use("/admin",(req,res,next) =>{
-    //Logic of checking if the request is authorized
-    const token = "xyzwueggfwe"
-    const isAdminAuthorized = token === "xyzwueggfwe"
-    if(!isAdminAuthorized){
-                res.status(401).send("Unauthorized request");
-    }
-    else{
-        next();
-    }
-})
+const { adminAuth ,userAuth } = require("./middlewares/auth")
+app.use("/admin",adminAuth);
+
 
 app.get("/admin/getAllData",(req,res) => {
          res.send("All data sent");
@@ -19,6 +11,14 @@ app.get("/admin/getAllData",(req,res) => {
 
 app.get("/admin/deleteUser",(req,res) => {
          res.send("Deleted a user");
+})
+
+app.get("/user/data",userAuth,(req,res) => {
+         res.send("User data sent");
+})
+
+app.post("/user/login",(req,res) => {
+         res.send("User logged in successfully");
 })
 
 
